@@ -27,20 +27,26 @@ const users = useLocalStorage('users', [
 const rentals = useLocalStorage('rentals', [
   {
     id: 1,
-    customer: 'Leticia Braga',
-    movies: ['Django'],
+    customer: {
+      id: 2,
+      name: 'Leticia'
+    },
+    movies: 'Django',
     dateStartRent: '2024-02-16',
     dateEndRent: '2024-02-22',
-    user: { id: 4, name: 'Zyon', document: '4646464646', password: '123456', status: 'active' },
+    user: { id: 2, name: 'Funcionario Ativo	' },
     status: 'rent'
   },
   {
     id: 2,
-    customer: 'Jon Snow',
-    movies: ['Insidious'],
+    customer: {
+      id: 4,
+      name: 'Raul'
+    },
+    movies: 'Insidious',
     dateStartRent: '2024-02-13',
     dateEndRent: '2024-02-17',
-    user: { id: 4, name: 'Zyon', document: '4646464646', password: '123456', status: 'active' },
+    user: { id: 2, name: 'Funcionario Ativo	' },
     status: 'delivered'
   }
 ])

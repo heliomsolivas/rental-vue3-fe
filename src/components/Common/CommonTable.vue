@@ -84,7 +84,8 @@ const props = defineProps({
     type: Array as PropType<TableHeaderInterface[]>
   },
   data: {
-    required: true
+    required: true,
+    type: Array as PropType<any[]>
   }
 })
 </script>

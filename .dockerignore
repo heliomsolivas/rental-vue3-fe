@@ -1,0 +1,6 @@
+# .dockerignore
+/.output
+/node_modules
+
+.gitignore
+README.md

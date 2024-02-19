@@ -46,7 +46,7 @@
                 v-model="rentalStartDate"
                 class="w-full rounded-md text-black py-2.5 ps-3 pe-3 shadow-md sm:text-sm"
                 type="text"
-                placeholder="Insira o documento"
+                placeholder="Dade de locação"
               />
             </div>
           </div>
@@ -59,7 +59,7 @@
                 v-model="rentalDeliverDate"
                 class="w-full rounded-md text-black py-2.5 ps-3 pe-3 shadow-md sm:text-sm"
                 type="text"
-                placeholder="Insira o documento"
+                placeholder="Data de entrega"
               />
             </div>
           </div>

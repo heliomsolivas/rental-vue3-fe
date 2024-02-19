@@ -1,3 +1,20 @@
+# Para rodar a aplicação você deve ter o Docker instalado na sua máquina
+
+## Realizar o build da aplicação
+- docker build -t vue-app .
+
+## Rodar a aplicação
+- docker run -p 5000:8080 vue-app
+
+## Abrir a aplicação
+- No seu navegador favorito, abrir a seguinte URL: [http://localhost:5000](http://localhost:5000)
+
+# Instruções
+- Para realizar o login no sistema, existem alguns usuários por padrão:
+ - Habilitado: 
+    - Nome: Funcionario Ativo
+    - Senha: 123
+
 # Funcionalidades
 
 - Usuário: Cadastro ✅, edição ✅, listagem ✅ e desativação (soft delete) ✅ e login ✅ / logout ✅
@@ -19,7 +36,3 @@
 - Usuários com status desativado não devem logar na aplicação ✅
 - Clientes com uma locação em status alugado não podem realizar outra locação ✅
 - Nomenclatura de classes, métodos e rotas no padrão americano ✅
-
-# Melhorar componentização ❌
-# Testes ❌
-# Docker ❌
