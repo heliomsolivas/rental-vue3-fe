@@ -1,5 +1,8 @@
 <template>
   <div class="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
+    <pre>
+      {{ order }}
+    </pre>
     <table
       class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm dark:divide-gray-700 dark:bg-gray-900"
     >
@@ -8,6 +11,7 @@
           <th
             v-for="(h, $h) in props.theaders"
             :key="$h"
+            @click="orderBy({ name: h.prop, order: order })"
             class="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-white"
           >
             {{ h.label }}
@@ -47,7 +51,7 @@
               <a
                 v-if="h.actions?.includes('edit')"
                 href.prevent="#"
-                @click="$emit('edit', dt)"
+                @click="edit(dt)"
                 class="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
               >
                 Editar
@@ -55,7 +59,7 @@
               <a
                 v-if="h.actions?.includes('toggle')"
                 href.prevent="#"
-                @click="$emit('toggle', dt)"
+                @click="toggle(dt)"
                 class="inline-block rounded px-4 py-2 text-xs font-medium text-white"
                 :class="[
                   dt['status'] === 'active'
@@ -77,6 +81,28 @@
 import type { TableHeaderInterface } from '@/types/TableHeaderInterface'
 import CommonBadge from '@/components/Common/CommonBadge.vue'
 import type { PropType } from 'vue'
+import { ref } from 'vue'
+
+const emit = defineEmits<{
+  (e: '@orderBy', objeto: { name: string; order: string }): void
+  (e: '@toggle', dt: any): void
+  (e: '@edit', dt: any): void
+}>()
+
+let order = ref('')
+
+function orderBy(objeto: { name: string; order: string }) {
+  emit('@orderBy', { name: objeto.name, order: objeto.order })
+  order.value = order.value === 'asc' ? 'desc' : 'asc'
+}
+
+function toggle(dt: any) {
+  emit('@toggle', dt)
+}
+
+function edit(dt: any) {
+  emit('@edit', dt)
+}
 
 const props = defineProps({
   theaders: {

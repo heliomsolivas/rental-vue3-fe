@@ -333,7 +333,13 @@
       Cadastrar cliente
     </a>
 
-    <CommonTable :theaders="userHeaders" :data="filteredData" @edit="edit" @toggle="toggle" />
+    <CommonTable
+      :theaders="userHeaders"
+      :data="filteredData"
+      @@toggle="toggle"
+      @@edit="edit"
+      @@order-by="orderBy"
+    />
 
     <CommonAlert
       :isVisible="createAlertVisibility"
@@ -539,6 +545,20 @@ const customers = useLocalStorage('customers', [
     status: 'inactive'
   }
 ])
+
+function orderBy(objeto: { order: string; name: string | number }) {
+  let list: any = customers.value
+
+  const orderMultiplier = objeto.order === 'asc' ? 1 : -1
+
+  list.sort((a: any, b: any) => {
+    const aValue = a[objeto.name]
+    const bValue = b[objeto.name]
+    return orderMultiplier * aValue.localeCompare(bValue)
+  })
+
+  customers.value = list
+}
 
 function createCustomer() {
   let lastElement = customers.value[customers.value.length - 1]

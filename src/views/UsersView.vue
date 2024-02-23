@@ -141,7 +141,13 @@
       </a>
     </div>
 
-    <CommonTable :theaders="userHeaders" :data="users" @edit="edit" @toggle="toggle" />
+    <CommonTable
+      :theaders="userHeaders"
+      :data="users"
+      @@toggle="toggle"
+      @@edit="edit"
+      @@order-by="orderBy"
+    />
     <CommonAlert
       :isVisible="createAlertVisibility"
       label="Sucesso"
@@ -222,11 +228,7 @@ function edit(data: any) {
 
 function toggle(data: any) {
   let findUser: any = users.value.find((s) => s.id === data.id)
-  if (findUser.status === 'active') {
-    findUser.status = 'inactive'
-  } else {
-    findUser.status = 'active'
-  }
+  findUser.status = findUser.status === 'active' ? 'inactive' : 'active'
 
   toggleAlertVisibility.value = true
 
@@ -236,7 +238,7 @@ function toggle(data: any) {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const users = useLocalStorage('users', [
+let users = useLocalStorage('users', [
   {
     id: 1,
     name: 'Helio',
@@ -247,6 +249,20 @@ const users = useLocalStorage('users', [
   { id: 2, name: 'Funcionario Ativo', document: '123456789', password: '123', status: 'active' },
   { id: 3, name: 'Funcionario Inativo', document: '959595959', password: '123', status: 'inactive' }
 ])
+
+function orderBy(objeto: { order: string; name: string | number }) {
+  let list: any = users.value
+
+  const orderMultiplier = objeto.order === 'asc' ? 1 : -1
+
+  list.sort((a: any, b: any) => {
+    const aValue = a[objeto.name]
+    const bValue = b[objeto.name]
+    return orderMultiplier * aValue.localeCompare(bValue)
+  })
+
+  users.value = list
+}
 
 function editUser() {
   let findUser: any = users.value.find((s) => s.id === editUserId.value)
